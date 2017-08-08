@@ -1,0 +1,194 @@
+swagger: "2.0"
+info:
+  version: "0.0.1"
+  title: postcode-geopos-api
+host: p-g-a.daten-und-bass.io
+basePath: /
+schemes:
+  - https
+consumes:
+  - application/json
+produces:
+  - application/json
+
+paths:
+  /api/v1/:
+    x-swagger-pipe: swagger_raw
+
+  /api/v1/{de}/{postcodes}/load:
+    x-swagger-router-controller: context_json_api_de_postcodes
+    get:
+      summary: Loads data to db
+      description: Preliminary Endpoint for initialising the database by loading data recieved from external API requests to the internal db
+      operationId: load
+      parameters:
+        - $ref: "#/parameters/de"
+        - $ref: "#/parameters/postcodes"
+      responses:
+        "200":
+          description: Success
+          schema:
+            type: array
+            items:
+              type: string
+        default:
+          description: Error
+          schema:
+            $ref: "#/definitions/ErrorResponse"
+  /api/v1/{de}/{postcodes}/names:
+    x-swagger-router-controller: context_json_api_de_postcodes
+    get:
+      summary: Returns names for postcodes
+      description: Returns all (city) names for all postcodes within the given lead region
+      operationId: namesRange
+      parameters:
+        - $ref: "#/parameters/de"
+        - $ref: "#/parameters/postcodes"
+        - name: leadRegion
+          required: true
+          in: query
+          description: ToDo Postleitregion Sting due to leading zeroes in PLZ
+          type: string
+          pattern: "^[0-9]{2,2}$"
+      responses:
+        "200":
+          description: Success
+          schema:
+            type: array
+            items:
+              type: string
+        default:
+          description: Error
+          schema:
+            $ref: "#/definitions/ErrorResponse"
+  /api/v1/{de}/{postcodes}/position/{postcode}:
+    x-swagger-router-controller: context_json_api_de_postcodes
+    get:
+      summary: Returns position for postcode
+      description: Returns the geoposition for one postcode
+      operationId: positionsGet
+      parameters:
+        - $ref: "#/parameters/de"
+        - $ref: "#/parameters/postcodes"
+        - $ref: "#/parameters/postcode"
+      responses:
+        "200":
+          description: Success
+          schema:
+            type: array
+            items:
+              type: string
+        default:
+          description: Error
+          schema:
+            $ref: "#/definitions/ErrorResponse"
+  /api/v1/{de}/{postcodes}/object/{postcode}:
+    x-swagger-router-controller: context_json_api_de_postcodes
+    get:
+      summary: Returns postcode object
+      description: Returns a JSON object with details on the given postcode
+      operationId: objectsGet
+      parameters:
+        - $ref: "#/parameters/de"
+        - $ref: "#/parameters/postcodes"
+        - $ref: "#/parameters/postcode"
+      responses:
+        "200":
+          description: Success
+          schema:
+            $ref: "#/definitions/postcodeObject"
+        default:
+          description: Error
+          schema:
+            $ref: "#/definitions/ErrorResponse"
+  /swagger:
+    x-swagger-pipe: swagger_raw
+
+parameters:
+  de:
+    name: de
+    required: true
+    in: path
+    description: Constant parameter used for detecting the country germany
+    type: string
+    enum: [ de ]
+  postcodes:
+    name: postcodes
+    required: true
+    in: path
+    description: Constant parameter used for detecting the data type of postcodes
+    type: string
+    enum: [ postcodes ]
+  postcode:
+    name: postcode
+    required: true
+    in: path
+    description: ToDo Sting due to leading zeroes in PLZ
+    type: string
+    pattern: "^[0-9]{5,5}$"
+  latitude:
+    name: latitude
+    required: true
+    in: path
+    description: ToDo
+    type: string
+  longitude:
+    name: longitude
+    required: true
+    in: path
+    description: ToDo
+    type: string
+  radius:
+    name: radius
+    required: true
+    in: query
+    description: ToDo
+    type: string
+
+definitions:
+
+  ErrorResponse:
+    required:
+      - message
+    properties:
+      message:
+        type: string
+
+  postcodeObject:
+    type: object
+    # required:
+    #   - osm_id
+    #   - osm_type
+    #   - place_id
+    #   - class
+    #   - type
+    #   - boundingbox
+    #   - lat
+    #   - lon
+    #   - display_name
+    #   - importance
+    #   - licence
+    properties:
+      osm_id:
+        type: string
+      osm_type:
+        type: string
+      place_id:
+        type: string
+      class:
+        type: string
+      type:
+        type: string
+      boundingbox:
+        type: string
+      lat:
+        type: string
+      lon:
+        type: string
+      display_name:
+        type: string
+      importance:
+        type: string
+      licence:
+        type: string
+
