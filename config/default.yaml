@@ -11,6 +11,9 @@ swagger:
   # (see https://github.com/apigee-127/bagpipes)
   bagpipes:
 
+    volos-swagger-oauth:
+      name: volos-swagger-oauth
+
     _router:
       name: swagger_router
       mockMode: false
@@ -25,6 +28,7 @@ swagger:
     swagger_controllers:
       - onError: json_error_handler
       - cors
+      - volos-swagger-oauth
       - swagger_security
       - _swagger_validate
       - express_compatibility

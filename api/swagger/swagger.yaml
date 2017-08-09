@@ -8,6 +8,7 @@ schemes:
   - https
 consumes:
   - application/json
+  - application/x-www-form-urlencoded
 produces:
   - application/json
 
@@ -21,6 +22,8 @@ paths:
       summary: Loads data to db
       description: Preliminary Endpoint for initialising the database by loading data recieved from external API requests to the internal db
       operationId: load
+      security:
+        - oauth2: [ "write:pc" ]
       parameters:
         - $ref: "#/parameters/de"
         - $ref: "#/parameters/postcodes"
@@ -41,6 +44,8 @@ paths:
       summary: Returns names for postcodes
       description: Returns all (city) names for all postcodes within the given lead region
       operationId: namesRange
+      security:
+        - oauth2: [ "read:pc" ]
       parameters:
         - $ref: "#/parameters/de"
         - $ref: "#/parameters/postcodes"
@@ -67,6 +72,8 @@ paths:
       summary: Returns position for postcode
       description: Returns the geoposition for one postcode
       operationId: positionsGet
+      security:
+        - oauth2: [ "read:pc" ]
       parameters:
         - $ref: "#/parameters/de"
         - $ref: "#/parameters/postcodes"
@@ -88,6 +95,8 @@ paths:
       summary: Returns postcode object
       description: Returns a JSON object with details on the given postcode
       operationId: objectsGet
+      security:
+        - oauth2: [ "read:pc" ]
       parameters:
         - $ref: "#/parameters/de"
         - $ref: "#/parameters/postcodes"
@@ -191,4 +200,25 @@ definitions:
         type: string
       licence:
         type: string
+
+securityDefinitions:
+  oauth2:
+    type: oauth2
+    description: Scope-based access to API operations
+    flow: application
+    tokenUrl: https://localhost:10011/accesstoken
+    scopes:
+      write:pc: Write operations for postcode management
+      read:pc: Read operations for postcodes
+
+x-volos-resources:
+  oauth2:
+    provider: volos-oauth-redis
+    options:
+      tokenLifetime: 900000000
+      validGrantTypes:
+        - client_credentials
+      tokenPaths:
+        token: /accesstoken
+        invalidate: /invalidate
 

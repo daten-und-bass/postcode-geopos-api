@@ -23,6 +23,7 @@ var context_json_api_de_postcodes = require('../../api/controllers/json_api_de_p
 
 module.exports = {
   webConfig: webConfig,
+  db: db,
   context_json_api_de_postcodes: context_json_api_de_postcodes,
 };
 
