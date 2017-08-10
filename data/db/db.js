@@ -1,5 +1,6 @@
 'use strict';
 
+var debug = require('debug')('redis');
 var redis = require('redis');
 
 var db = function() {
@@ -36,6 +37,10 @@ var db = function() {
         },
         range: function (key, min, max, callback) {
 
+          debug('pga:key', key);
+          debug('pga:range', min);
+          debug('pga:max', max);
+          debug('pga:callback', callback);
           redisClient.ZRANGEBYLEX(key, min, max, function (error, response) {
             
             if (error) { return callback(error); }
