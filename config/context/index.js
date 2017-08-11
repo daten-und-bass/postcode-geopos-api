@@ -5,8 +5,11 @@ var api = require('yamljs').load('api/swagger/swagger.yaml');
 var webConfig = require('../app').web();
 var dbConfig = require('../app').db();
 
+var logger = require('../../api/helpers/logger.js')
+
 var dbContext = {
   dbConfig: dbConfig,
+  logger: logger.postcodes.load,
 }
 
 var db = require('../../data/db/db')
@@ -15,6 +18,7 @@ var db = require('../../data/db/db')
 var context = {
   index: {
     db: db,
+    logger: logger.postcodes.load
   },
 };
 

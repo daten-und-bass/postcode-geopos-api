@@ -25,13 +25,15 @@ var db = function() {
         add: function (key, memberData, callback) {
 
           redisClient.zadd(key, memberData, function (error, response) {
+
+            var logData = that.logger.utils.dataMaker(error, 'namesAdd', response, memberData);
             
-            if (error) { return callback(error, 0, memberData); }
+            if (error) { return callback(error, logData); }
 
             if (response === 1) {
-              // return callback(null, response, memberData);
+              return callback(null, logData);
             } else {
-              return callback(null, 0, memberData);
+              return callback(null, logData);
             }
           });
         },
@@ -57,13 +59,15 @@ var db = function() {
         add: function (key, memberData, callback) {
 
           redisClient.geoadd(key, memberData, function (error, response) {
+
+            var logData = that.logger.utils.dataMaker(error, 'positionsAdd', response, memberData);
             
-            if (error) { return callback(error, 0, memberData); }
+            if (error) { return callback(error, logData); }
 
             if (response === 1) {
-              // return callback(null, response, memberData);
+              return callback(null, logData);
             } else {
-              return callback(null, 0, memberData);
+              return callback(null, logData);
             }
           });
         },
@@ -85,13 +89,15 @@ var db = function() {
         add: function (key, postcodeObject, callback) {
 
           redisClient.hmset(key, postcodeObject, function (error, response) {
+
+            var logData = that.logger.utils.dataMaker(error, 'objectsAdd', response, postcodeObject.display_name);
             
-            if (error) { return callback(error, 0, postcodeObject.display_name); }
+            if (error) { return callback(error, logData); }
 
             if (response === "OK") {
-              // return callback(null, response, postcodeObject.display_name);
+              return callback(null, logData);
             } else {
-              return callback(null, 0, postcodeObject.display_name);
+              return callback(null, logData);
             }
           });
         },
