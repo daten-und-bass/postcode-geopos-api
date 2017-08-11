@@ -1,6 +1,6 @@
 swagger: "2.0"
 info:
-  version: "0.0.1"
+  version: "0.0.2"
   title: postcode-geopos-api
 host: p-g-a.daten-und-bass.io
 basePath: /
@@ -38,6 +38,7 @@ paths:
           description: Error
           schema:
             $ref: "#/definitions/ErrorResponse"
+
   /api/v1/{de}/{postcodes}/names:
     x-swagger-router-controller: context_json_api_de_postcodes
     get:
@@ -66,6 +67,7 @@ paths:
           description: Error
           schema:
             $ref: "#/definitions/ErrorResponse"
+
   /api/v1/{de}/{postcodes}/position/{postcode}:
     x-swagger-router-controller: context_json_api_de_postcodes
     get:
@@ -89,6 +91,7 @@ paths:
           description: Error
           schema:
             $ref: "#/definitions/ErrorResponse"
+
   /api/v1/{de}/{postcodes}/object/{postcode}:
     x-swagger-router-controller: context_json_api_de_postcodes
     get:
@@ -110,6 +113,7 @@ paths:
           description: Error
           schema:
             $ref: "#/definitions/ErrorResponse"
+
   /swagger:
     x-swagger-pipe: swagger_raw
 
@@ -118,7 +122,7 @@ parameters:
     name: de
     required: true
     in: path
-    description: Constant parameter used for detecting the country germany
+    description: Constant parameter used for detecting the country Germany
     type: string
     enum: [ de ]
   postcodes:
@@ -165,18 +169,6 @@ definitions:
 
   postcodeObject:
     type: object
-    # required:
-    #   - osm_id
-    #   - osm_type
-    #   - place_id
-    #   - class
-    #   - type
-    #   - boundingbox
-    #   - lat
-    #   - lon
-    #   - display_name
-    #   - importance
-    #   - licence
     properties:
       osm_id:
         type: string
@@ -206,7 +198,7 @@ securityDefinitions:
     type: oauth2
     description: Scope-based access to API operations
     flow: application
-    tokenUrl: https://localhost:10011/accesstoken
+    tokenUrl: https://localhost:10011/api/v1/accesstoken
     scopes:
       write:pc: Write operations for postcode management
       read:pc: Read operations for postcodes
@@ -219,6 +211,6 @@ x-volos-resources:
       validGrantTypes:
         - client_credentials
       tokenPaths:
-        token: /accesstoken
-        invalidate: /invalidate
+        token: /api/v1/accesstoken
+        invalidate: /api/v1/invalidate
 

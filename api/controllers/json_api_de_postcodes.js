@@ -59,8 +59,7 @@ var jsonApiDePostcodes = function (api) {
                   entry.boundingbox = pcObjectsHValueBBX;
                   that.db.objects.add(pcObjectsHPrefix + ":" + postcode.postcode, entry, that.logger.writer);
 
-                } 
-                else {
+                } else {
 
                   pcNamesZMember = postcode.postcode + " " + entry.display_name.split(",")[0];
                     

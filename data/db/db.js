@@ -55,6 +55,7 @@ var db = function() {
           });
         },
       },
+      
       positions: {
         add: function (key, memberData, callback) {
 

@@ -11,8 +11,6 @@ var appConfig = {
     return environment;
   },
 
-  // ENV for URL
-  // other configs her or in context
   web: function() {
     var web = {
       https: {
@@ -20,7 +18,7 @@ var appConfig = {
         crt: process.env.DNB_ENV_V_SEC_PATH + '/' + process.env.DNB_ENV_APP_S1_WB_FTED_HTTPS_CERT1_PUB,
         key: process.env.DNB_ENV_V_SEC_PATH + '/' + process.env.DNB_ENV_APP_S1_WB_FTED_HTTPS_CERT1_KEY,
       },
-      // proxies: [ process.env.DNB_INF1_ENV_S1_WF1_FTED_IP1, process.env.DNB_APP_ENV_S1_LB1_FTED_IP1 ],
+      // proxies: [ process.env.x1, process.env.x2 ],
     };
 
     return web;
