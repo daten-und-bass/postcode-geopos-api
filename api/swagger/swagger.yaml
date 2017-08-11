@@ -87,6 +87,7 @@ paths:
             type: array
             items:
               type: string
+              # pattern: "^[+-]{0,1}[0-9]{1,}[.][0-9]{1,}$" actually right regex for float according to https://regex101.com, but swagger outputs "Bad string"
         default:
           description: Error
           schema:
@@ -139,24 +140,24 @@ parameters:
     description: ToDo Sting due to leading zeroes in PLZ
     type: string
     pattern: "^[0-9]{5,5}$"
-  latitude:
-    name: latitude
-    required: true
-    in: path
-    description: ToDo
-    type: string
-  longitude:
-    name: longitude
-    required: true
-    in: path
-    description: ToDo
-    type: string
-  radius:
-    name: radius
-    required: true
-    in: query
-    description: ToDo
-    type: string
+  # latitude:
+  #   name: latitude
+  #   required: true
+  #   in: path
+  #   description: ToDo
+  #   type: string
+  # longitude:
+  #   name: longitude
+  #   required: true
+  #   in: path
+  #   description: ToDo
+  #   type: string
+  # radius:
+  #   name: radius
+  #   required: true
+  #   in: query
+  #   description: ToDo
+  #   type: string
 
 definitions:
 

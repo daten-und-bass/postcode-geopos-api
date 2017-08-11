@@ -34,7 +34,12 @@
   "devDependencies": {
     "debug": "^3.0.0",
     "should": "^7.1.0",
-    "supertest": "^1.0.0"
+    "supertest": "^1.0.0",
+    "z-schema": "^3.12.0",
+    "request": "^2.58.0",
+    "chai": "^3.0.0",
+    "mocha": "^2.2.5",
+    "dotenv": "^1.2.0"
   },
   "scripts": {
     "start": "node app.js",

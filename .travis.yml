@@ -1,0 +1,11 @@
+language: node_js
+node_js:
+  - "6"
+before_script:
+  - npm install
+  - cp ./config/travis/dnb_tst2_app6_s1_wb_cert_key.pem ~
+  - cp ./config/travis/dnb_tst2_app6_s1_wb_cert_pub.pem ~
+script:
+  - swagger project start &
+  - sleep 10
+  - swagger project test
