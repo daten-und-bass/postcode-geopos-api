@@ -16,11 +16,7 @@ var jsonApiDePostcodes = function (api) {
     load: function (req, res, next) {
       // [{"osm_city_id":"2803631","city":"Allmendingen","postcode":"89604","district":"Alb-Donau-Kreis","state":"Baden-Wuerttemberg"},
       //  {"osm_city_id":"62422","city":"Berlin","postcode":"10247","district":"","state":"Berlin"}, ...]
-      var pc = [{"osm_city_id":"1075132","city":"Bereborn","postcode":"56769","district":"Landkreis Vulkaneifel","state":"Rheinland-Pfalz"},
-{"osm_city_id":"1075158","city":"Berenbach","postcode":"56766","district":"Landkreis Vulkaneifel","state":"Rheinland-Pfalz"},
-{"osm_city_id":"540444","city":"Berg","postcode":"56357","district":"Rhein-Lahn-Kreis","state":"Rheinland-Pfalz"},
-{"osm_city_id":"932489","city":"Berg","postcode":"82335","district":"Landkreis Starnberg","state":"Bayern"},
-{"osm_city_id":"1021686","city":"Berg","postcode":"95180","district":"Landkreis Hof","state":"Bayern"}];
+      var pc = [];
       var pcReqIsSuccess = false;
       var pcReqNoSuccess = [];
 
@@ -56,12 +52,12 @@ var jsonApiDePostcodes = function (api) {
 
                   pcNamesZMember = postcode.postcode + " " + postcode.city + " " + entry.display_name.split(",")[0];
 
-                  that.db.postcodes.names.add(pcNamesZKey, [pcNamesZScore, pcNamesZMember], that.logger.writer);
-                  that.db.postcodes.positions.add(pcPositionsZKey, [entry.lon, entry.lat, postcode.postcode], that.logger.writer);
+                  that.db.names.add(pcNamesZKey, [pcNamesZScore, pcNamesZMember], that.logger.writer);
+                  that.db.positions.add(pcPositionsZKey, [entry.lon, entry.lat, postcode.postcode], that.logger.writer);
 
                   delete entry.boundingbox;
                   entry.boundingbox = pcObjectsHValueBBX;
-                  that.db.postcodes.objects.add(pcObjectsHPrefix + ":" + postcode.postcode, entry, that.logger.writer);
+                  that.db.objects.add(pcObjectsHPrefix + ":" + postcode.postcode, entry, that.logger.writer);
 
                 } 
                 else {
@@ -86,12 +82,12 @@ var jsonApiDePostcodes = function (api) {
                     pcNamesZMember = pcNamesZMember.concat(entry.display_name.split(",")[1]);
                   }
 
-                  that.db.postcodes.names.add(pcNamesZKey, [pcNamesZScore, pcNamesZMember], that.logger.writer);
-                  that.db.postcodes.positions.add(pcPositionsZKey, [entry.lon, entry.lat, postcode.postcode], that.logger.writer);
+                  that.db.names.add(pcNamesZKey, [pcNamesZScore, pcNamesZMember], that.logger.writer);
+                  that.db.positions.add(pcPositionsZKey, [entry.lon, entry.lat, postcode.postcode], that.logger.writer);
 
                   delete entry.boundingbox;
                   entry.boundingbox = pcObjectsHValueBBX;
-                  that.db.postcodes.objects.add(pcObjectsHPrefix + ":" + postcode.postcode, entry, that.logger.writer);
+                  that.db.objects.add(pcObjectsHPrefix + ":" + postcode.postcode, entry, that.logger.writer);
 
                 }
               }
@@ -119,7 +115,7 @@ var jsonApiDePostcodes = function (api) {
       var pcNamesZRangeMin = "[" + req.swagger.params.leadRegion.value;
       var pcNamesZRangeMax = "[" + req.swagger.params.leadRegion.value + "\xff";
 
-      that.db.postcodes.names.range(pcNamesZKey, pcNamesZRangeMin, pcNamesZRangeMax, function(error, response) {
+      that.db.names.range(pcNamesZKey, pcNamesZRangeMin, pcNamesZRangeMax, function(error, response) {
 
         if (error) { return next(error); }
 
@@ -131,7 +127,7 @@ var jsonApiDePostcodes = function (api) {
 
       var pcPositionsZMember = req.swagger.params.postcode.value;
 
-      that.db.postcodes.positions.get(pcPositionsZKey, pcPositionsZMember, function (error, response) {
+      that.db.positions.get(pcPositionsZKey, pcPositionsZMember, function (error, response) {
         
         if (error) { return next(error); }
 
@@ -144,7 +140,7 @@ var jsonApiDePostcodes = function (api) {
 
       var pcObjectsHKey = req.swagger.params.de.value + ":" + req.swagger.params.postcodes.value + ":object:" + req.swagger.params.postcode.value;
 
-      that.db.postcodes.objects.get(pcObjectsHKey, function (error, response) {
+      that.db.objects.get(pcObjectsHKey, function (error, response) {
         
         if (error) { return next(error); }
 

@@ -1,6 +1,7 @@
 'use strict';
 
-var pgaOAuthOptions = require('../app/').db().auth.oAuth.volos.options;
+var pgaOAuthStore = require('../app/').dbAuth().store;
+var pgaOAuthVolosOptions = require('../app/').dbAuth().auth.oAuth.volos.options;
 
 var config = {};
 
@@ -19,12 +20,12 @@ config.appRequest = {
 
 var ManagementProvider = require('volos-management-redis');
 var options = {
-  encryptionKey : pgaOAuthOptions.encryptionKey,
-  host: pgaOAuthOptions.host,
-  port: pgaOAuthOptions.port,
-  db: pgaOAuthOptions.db,
+  encryptionKey : pgaOAuthVolosOptions.encryptionKey,
+  host: pgaOAuthStore.host,
+  port: pgaOAuthStore.port,
+  db: pgaOAuthVolosOptions.db,
   options: {
-    auth_pass: pgaOAuthOptions.options.auth_pass
+    auth_pass: pgaOAuthStore.options.auth_pass
   }
 };
 

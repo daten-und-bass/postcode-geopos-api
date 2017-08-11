@@ -37,25 +37,35 @@ var appConfig = {
           // prefix: 'pga:posctcodes:',
         },
       },
+    };
+
+    return db;
+  },
+
+  dbAuth: function() {
+    var dbAuth = {
+      store: {
+        host: process.env.DNB_ENV_APP_S3_DB,
+        port: process.env.DNB_N_REDIS_PORT,
+        options: {
+          auth_pass: fs.readFileSync(process.env.DNB_ENV_V_SEC_PATH + '/' + process.env.DNB_ENV_APP_S3_DB_PASS, 'utf8').toString().slice(0, -1),
+        },
+      },
       auth: {
         oAuth: {
           type: 'oAuth',
           volos: {
+            type: 'volos',
             options: {
               encryptionKey: fs.readFileSync(process.env.DNB_ENV_V_SEC_PATH + '/' + process.env.DNB_ENV_APP_S1_WB_OAUT_SEC, 'utf8').toString().slice(0, -1),
-              host: process.env.DNB_ENV_APP_S2_DB,
-              port: process.env.DNB_N_REDIS_PORT,
-              db: parseInt(process.env.DNB_APP_S2_DB_INST0),
-              options:{
-                auth_pass: fs.readFileSync(process.env.DNB_ENV_V_SEC_PATH + '/' + process.env.DNB_ENV_APP_S2_DB_PASS, 'utf8').toString().slice(0, -1),
-              },
+              db: parseInt(process.env.DNB_APP_S3_DB_INST0),
             },
           },
         },
       },
     };
 
-    return db;
+    return dbAuth;
   },
 
 };

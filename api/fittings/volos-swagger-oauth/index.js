@@ -3,16 +3,18 @@
 var volos = require('volos-swagger');
 var _ = require('lodash');
 var path = require('path');
-var pgaOAuthOptions = require('../../../config/context/').db.config.auth.oAuth.volos.options;
+
+var pgaOAuthStore = require('../../../config/context/').dbAuthConfig.store;
+var pgaOAuthVolosOptions = require('../../../config/context/').dbAuthConfig.auth.oAuth.volos.options;
 
 module.exports = function create(fittingDef, bagpipes) {
 
-  bagpipes.config.swaggerNodeRunner.swagger['x-volos-resources'].oauth2.options.encryptionKey = pgaOAuthOptions.encryptionKey;
-  bagpipes.config.swaggerNodeRunner.swagger['x-volos-resources'].oauth2.options.host = pgaOAuthOptions.host;
-  bagpipes.config.swaggerNodeRunner.swagger['x-volos-resources'].oauth2.options.port = pgaOAuthOptions.port;
-  bagpipes.config.swaggerNodeRunner.swagger['x-volos-resources'].oauth2.options.db = pgaOAuthOptions.db;
+  bagpipes.config.swaggerNodeRunner.swagger['x-volos-resources'].oauth2.options.encryptionKey = pgaOAuthVolosOptions.encryptionKey;
+  bagpipes.config.swaggerNodeRunner.swagger['x-volos-resources'].oauth2.options.host = pgaOAuthStore.host;
+  bagpipes.config.swaggerNodeRunner.swagger['x-volos-resources'].oauth2.options.port = pgaOAuthStore.port;
+  bagpipes.config.swaggerNodeRunner.swagger['x-volos-resources'].oauth2.options.db = pgaOAuthVolosOptions.db;
   bagpipes.config.swaggerNodeRunner.swagger['x-volos-resources'].oauth2.options.options = {};
-  bagpipes.config.swaggerNodeRunner.swagger['x-volos-resources'].oauth2.options.options.auth_pass = pgaOAuthOptions.options.auth_pass;
+  bagpipes.config.swaggerNodeRunner.swagger['x-volos-resources'].oauth2.options.options.auth_pass = pgaOAuthStore.options.auth_pass;
   
   var swaggerNodeRunner = bagpipes.config.swaggerNodeRunner;
 
