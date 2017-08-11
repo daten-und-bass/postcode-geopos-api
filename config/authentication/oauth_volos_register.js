@@ -54,7 +54,7 @@ createDev(function(e, developer) {
     var key = encodeURIComponent(result.credentials[0].key);
     var secret = encodeURIComponent(result.credentials[0].secret);
     var scope = encodeURIComponent(config.appRequest.scopes);
-    console.log("Obtain access token:  curl -i -X POST http://127.0.0.1:10010/accesstoken -d 'grant_type=client_credentials&client_id=" + key + "&client_secret=" + secret + "&scope=" + scope + "'");
+    console.log("Obtain access token:  curl -i -X POST http://127.0.0.1:10010/api/v1/accesstoken -d 'grant_type=client_credentials&client_id=" + key + "&client_secret=" + secret + "&scope=" + scope + "'");
     process.exit();
   });
 });
