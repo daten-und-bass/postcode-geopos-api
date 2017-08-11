@@ -55,7 +55,7 @@ var db = function() {
           });
         },
       },
-      
+
       positions: {
         add: function (key, memberData, callback) {
 
@@ -86,6 +86,7 @@ var db = function() {
           }); 
         },
       },
+      
       objects: {
         add: function (key, postcodeObject, callback) {
 

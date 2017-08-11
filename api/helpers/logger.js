@@ -25,6 +25,7 @@ var logging = {
         warn: 0,
         info: 0,
       },
+
       writer: function (error, data) { 
 
         switch (data.action){
@@ -82,6 +83,7 @@ var logging = {
             } 
         }
       },
+      
       utils: {
         dataMaker: function (error, action, response, member) {
           return {

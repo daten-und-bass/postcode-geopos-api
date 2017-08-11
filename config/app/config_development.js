@@ -49,6 +49,7 @@ var appConfig = {
           auth_pass: fs.readFileSync(process.env.DNB_ENV_V_SEC_PATH + '/' + process.env.DNB_ENV_APP_S3_DB_PASS, 'utf8').toString().slice(0, -1),
         },
       },
+      
       auth: {
         oAuth: {
           type: 'oAuth',
