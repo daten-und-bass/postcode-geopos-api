@@ -9,14 +9,15 @@ before_script:
   - npm install
   - cp ./config/travis/dnb_tst2_app6_s1_wb_cert_key.pem ~
   - cp ./config/travis/dnb_tst2_app6_s1_wb_cert_pub.pem ~
-  - ls /
-  - ls /data
+  - ls /etc/redis
+  - cat /etc/redis/redis.conf
   #- cp ./config/travis/data.tar ~
   #- sudo service redis-server stop
   #- sleep 10
   #- find /data -mindepth 1 -delete
   #- echo 'reqirepass $...' > config 
   #- tar -xvf ~/data.tar -C .
+  #- sudo service redis-server start requirepass "${...}"  --appendonly yes
 
 
 script:
