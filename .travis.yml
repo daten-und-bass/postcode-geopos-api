@@ -13,7 +13,7 @@ before_script:
   - cp ./config/travis/dnb_tst2_app6_s1_wb_cert_key.pem ~
   - cp ./config/travis/dnb_tst2_app6_s1_wb_cert_pub.pem ~
   - ls /etc/redis
-  - cat /etc/redis/redis.conf
+  - sudo cat /etc/redis/redis.conf
   #- cp ./config/travis/data.tar ~
   #- sudo service redis-server stop
   #- sleep 10
