@@ -43,7 +43,7 @@ var appConfig = {
   dbAuth: function() {
     var dbAuth = {
       store: {
-        host: process.env.DNB_ENV_APP_S3_DB,
+        host: process.env.DNB_ENV_APP_S2_DB,
         port: process.env.DNB_N_REDIS_PORT,
         options: {
           auth_pass: process.env.DNB_ENV_APP_S2_DB_PASS,
@@ -57,7 +57,7 @@ var appConfig = {
             type: 'volos',
             options: {
               encryptionKey: process.env.DNB_ENV_APP_S1_WB_OAUT_SEC,
-              db: parseInt(process.env.DNB_APP_S3_DB_INST0),
+              db: parseInt(process.env.DNB_APP_S2_DB_INST0),
             },
           },
         },
