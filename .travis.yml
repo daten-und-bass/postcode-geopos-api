@@ -22,11 +22,14 @@ before_script:
   - sudo ls -al  /var/lib/redis
   - sudo find /var/lib/redis -mindepth 1 -delete
   - sudo tar -xvf ~/data.tar -C /var/lib/redis --strip 1 
+  - sudo chown redis:redis /var/lib/redis/appendonly.aof
+  - sudo chmod 660 /var/lib/redis/appendonly.aof 
   - sudo ls -al  /var/lib/redis
   - sudo service redis-server start
   - sleep 20
 
 script:
+  - cat /var/log/redis/redis.log
   - swagger project start &
   - sleep 10
   - swagger project test
