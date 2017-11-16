@@ -29,7 +29,6 @@ before_script:
   - sleep 20
 
 script:
-  - sudo ls -al /var/log/redis
   - sudo cat /var/log/redis/redis-server.log
   - swagger project start &
   - sleep 10
