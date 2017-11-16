@@ -6,7 +6,7 @@ npm-debug.log
 **/.sublime-project
 **/.sublime-workspace
 */**/config_production.js
-
+/api/controllers/postcodes.js
 
 # Swagger ignored files
 # IDE files
