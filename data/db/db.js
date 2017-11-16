@@ -20,32 +20,29 @@ var db = function() {
   return {
     config: that.dbConfig,
 
-    postcodes: { // interface always?: key, params, options, callback
-      names: {
-        add: function (key, memberData, callback) {
+    postcodes: {
+      names: {    
+        add: function (key, args, options, callback) {
 
-          redisClient.zadd(key, memberData, function (error, response) {
+          redisClient.zadd(key, args, function (error, response) {
 
-            var logData = that.logger.utils.dataMaker(error, 'namesAdd', response, memberData);
+            var logData = that.logger.utils.dataMaker(error, 'namesAdd', response, options.postcode, options.index);
             
-            if (error) { return callback(error, logData); }
+            // if (error) { return callback(error, response); }
 
-            if (response === 1) {
-              return callback(null, logData);
-            } else {
-              return callback(null, logData);
-            }
+            return callback(error, logData);
           });
         },
-        range: function (key, min, max, callback) {
+
+        range: function (key, args, options, callback) {
 
           debug('pga:key', key);
-          debug('pga:range', min);
-          debug('pga:max', max);
+          debug('pga:min', args[0]);
+          debug('pga:max', args[1]);
           debug('pga:callback', callback);
-          redisClient.ZRANGEBYLEX(key, min, max, function (error, response) {
+          redisClient.ZRANGEBYLEX(key, args[0], args[1], function (error, response) {
             
-            if (error) { return callback(error); }
+            if (error) { return callback(error, null); }
 
             if (response.length !== 0) {
               return callback(null, response);
@@ -57,24 +54,21 @@ var db = function() {
       },
 
       positions: {
-        add: function (key, memberData, callback) {
+        add: function (key, args, options, callback) {
 
-          redisClient.geoadd(key, memberData, function (error, response) {
+          redisClient.geoadd(key, args, function (error, response) {
 
-            var logData = that.logger.utils.dataMaker(error, 'positionsAdd', response, memberData);
+            var logData = that.logger.utils.dataMaker(error, 'positionsAdd', response, options.postcode, options.index);
             
-            if (error) { return callback(error, logData); }
+            // if (error) { return callback(error, logData); }
 
-            if (response === 1) {
-              return callback(null, logData);
-            } else {
-              return callback(null, logData);
-            }
+            return callback(error, logData);
           });
         },
-        get: function (key, member, callback) {
 
-          redisClient.GEOPOS(key, member, function(error, response) {
+        get: function (key, args, options, callback) {
+
+          redisClient.GEOPOS(key, args[0], function(error, response) {
 
             if (error) { return callback(error); }
 
@@ -88,22 +82,20 @@ var db = function() {
       },
       
       objects: {
-        add: function (key, postcodeObject, callback) {
+        add: function (key, args, options, callback) {
 
-          redisClient.hmset(key, postcodeObject, function (error, response) {
 
-            var logData = that.logger.utils.dataMaker(error, 'objectsAdd', response, postcodeObject.display_name);
+          redisClient.hmset(key, args[0], function (error, response) {
+
+            var logData = that.logger.utils.dataMaker(error, 'objectsAdd', response, options.postcode, options.index);
             
-            if (error) { return callback(error, logData); }
+            // if (error) { return callback(error, logData); }
 
-            if (response === "OK") {
-              return callback(null, logData);
-            } else {
-              return callback(null, logData);
-            }
+            return callback(error, logData);
           });
         },
-        get: function (key, callback) {
+
+        get: function (key, args, options, callback) {
           
           redisClient.hgetall(key, function (error, response) {
             
