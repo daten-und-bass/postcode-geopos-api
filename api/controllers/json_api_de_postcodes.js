@@ -1,7 +1,7 @@
 'use strict';
 
 var request = require('request');
-// var postcodes = require('./postcodes');
+// var postcodes = require('../../public/data/import_base_file/postcodes');
 var postcodes =[{"osm_city_id":"2803631","city":"Allmendingen","postcode":"89604","district":"Alb-Donau-Kreis","state":"Baden-Wuerttemberg"},
                 {"osm_city_id":"62422","city":"Berlin","postcode":"10247","district":"","state":"Berlin"}]
 

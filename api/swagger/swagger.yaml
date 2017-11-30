@@ -20,7 +20,7 @@ paths:
     x-swagger-router-controller: context_json_api_de_postcodes
     get:
       summary: Loads data to db
-      description: Preliminary Endpoint for initialising the database by loading data recieved from external API requests to the internal db
+      description: Preliminary endpoint for initialising the database by loading data recieved from external API requests to the internal db
       operationId: load
       security:
         - oauth2: [ "write:pc" ]
@@ -53,7 +53,7 @@ paths:
         - name: leadRegion
           required: true
           in: query
-          description: ToDo Postleitregion Sting due to leading zeroes in PLZ
+          description: Postcode lead region ("Postleitregion") modelled as string (due to leading zeroes in German postcodes)
           type: string
           pattern: "^[0-9]{2,2}$"
       responses:
@@ -137,27 +137,9 @@ parameters:
     name: postcode
     required: true
     in: path
-    description: ToDo Sting due to leading zeroes in PLZ
+    description: Postcode modelled as string (due to leading zeroes in German postcodes)
     type: string
     pattern: "^[0-9]{5,5}$"
-  # latitude:
-  #   name: latitude
-  #   required: true
-  #   in: path
-  #   description: ToDo
-  #   type: string
-  # longitude:
-  #   name: longitude
-  #   required: true
-  #   in: path
-  #   description: ToDo
-  #   type: string
-  # radius:
-  #   name: radius
-  #   required: true
-  #   in: query
-  #   description: ToDo
-  #   type: string
 
 definitions:
 
