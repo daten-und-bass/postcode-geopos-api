@@ -19,6 +19,6 @@ https://p-g-a.daten-und-bass.io/api/v1
 https://github.com/daten-und-bass/postcode-geopos-api/blob/master/api/swagger/swagger.yaml
 
 ## Screen Shots ##
-![P-G-A_Sample_ScreenShot](/public/images/screenshots/P-G-A_Sample_ScreenShot.png?raw=true "P-G-A Client Sample")
+![P-G-A_Sample_ScreenShot](/public/screenshots/P-G-A_Sample_ScreenShot.png?raw=true "P-G-A Client Sample")
 
-![P-G-A_API_Docs_SreenShot](/public/images/screenshots/P-G-A_API_Docs_SreenShot.png?raw=true "P-G-A Swagger Documentation")
+![P-G-A_API_Docs_SreenShot](/public/screenshots/P-G-A_API_Docs_SreenShot.png?raw=true "P-G-A Swagger Documentation")
