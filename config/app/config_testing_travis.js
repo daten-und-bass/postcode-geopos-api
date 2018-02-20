@@ -53,6 +53,12 @@ var appConfig = {
       auth: {
         oAuth: {
           type: 'oAuth',
+          options: {
+            grant_type: 'client_credentials',
+            client_id: process.env.DNB_ENV_APP_S1_WB_API_CLIENT_ID,
+            client_secret: process.env.DNB_ENV_APP_S1_WB_API_CLIENT_SECRET,
+            scope: "read:pc"
+          },
           volos: {
             type: 'volos',
             options: {

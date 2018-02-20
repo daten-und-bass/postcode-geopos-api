@@ -1,6 +1,6 @@
 swagger: "2.0"
 info:
-  version: "0.0.2"
+  version: "0.1.0"
   title: postcode-geopos-api
 host: p-g-a.daten-und-bass.io
 basePath: /
@@ -110,6 +110,48 @@ paths:
           description: Success
           schema:
             $ref: "#/definitions/postcodeObject"
+        default:
+          description: Error
+          schema:
+            $ref: "#/definitions/ErrorResponse"
+
+  /api/v1/{de}/{postcodes}/distance:
+    x-swagger-router-controller: context_json_api_de_postcodes
+    get:
+      summary: Returns distance between two postcodes
+      description: Returns the linear distance in the given unit between the central points of the two given postcodes 
+      operationId: distanceGet
+      security:
+        - oauth2: [ "read:pc" ]
+      parameters:
+        - $ref: "#/parameters/de"
+        - $ref: "#/parameters/postcodes"
+        - name: start
+          required: true
+          in: query
+          description: Postcode start point
+          type: string
+          pattern: "^[0-9]{5,5}$"
+        - name: end
+          required: true
+          in: query
+          description: Postcode destination point
+          type: string
+          pattern: "^[0-9]{5,5}$"
+        - name: unit
+          required: false
+          in: query
+          description: The unit to be used for the distance value (defaults to meter)
+          type: string
+          enum: [ m, km, mi, ft ]
+          default: m
+      responses:
+        "200":
+          description: Success
+          schema:
+            type: array
+            items:
+              type: string
         default:
           description: Error
           schema:

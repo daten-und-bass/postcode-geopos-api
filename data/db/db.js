@@ -109,6 +109,22 @@ var db = function() {
           });
         }
       },
+
+      distance: {
+        get: function (key, args, options, callback) {
+
+          redisClient.GEODIST(key, args, function(error, response) {
+
+            if (error) { return callback(error); }
+
+            if (response !== null) {
+              return callback(null, [response, args[2]]);
+            } else {
+              return callback(null, []);
+            }
+          }); 
+        },
+      },
     },
   };
 };

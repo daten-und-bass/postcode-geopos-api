@@ -1,6 +1,6 @@
 {
   "name": "postcode-geopos-api",
-  "version": "0.0.2",
+  "version": "0.1.0",
   "private": true,
   "description": "A NodeJS API based on Swagger/openAPI for retrieving geolocations from german postcodes (PLZ) stored in redis",
   "keywords": [

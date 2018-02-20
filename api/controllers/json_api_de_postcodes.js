@@ -160,6 +160,21 @@ var jsonApiDePostcodes = function (api) {
         res.send(response);
       });
     },
+
+    distanceGet: function (req, res, next) {
+
+      var start = req.swagger.params.start.value;
+      var end = req.swagger.params.end.value;
+      var unit = req.swagger.params.unit.value;
+
+      that.db.distance.get(pcPositionsZKey, [start, end, unit], {}, function (error, response) {
+        
+        if (error) { return next(error); }
+
+        res.send(response);
+
+      });
+    },
   };
 };
 

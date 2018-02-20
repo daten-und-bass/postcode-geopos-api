@@ -15,11 +15,11 @@ before_script:
   - cp ./config/travis/data.tar ~
   - sudo service redis-server stop
   - sleep 10
-  - sudo cat /etc/redis/redis.conf
+  # - sudo cat /etc/redis/redis.conf
   - sudo sed -i 's|appendonly no|appendonly yes|g' /etc/redis/redis.conf
   - sudo sed -i "s|# requirepass foobared|requirepass ${DNB_ENV_APP_S2_DB_PASS}|g" /etc/redis/redis.conf
-  - sudo cat /etc/redis/redis.conf
-  - sudo ls -al  /var/lib/redis
+  # - sudo cat /etc/redis/redis.conf
+  # - sudo ls -al  /var/lib/redis
   - sudo find /var/lib/redis -mindepth 1 -delete
   - sudo tar -xvf ~/data.tar -C /var/lib/redis --strip 1 
   - sudo chown redis:redis /var/lib/redis/appendonly.aof
