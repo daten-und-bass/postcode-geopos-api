@@ -51,6 +51,22 @@ var db = function() {
             }
           });
         },
+
+        scan: function (key, args, options, callback) {
+
+          redisClient.ZSCAN(key, args, function (error, response) {
+            
+            if (error) { return callback(error, null); }
+
+            if (response.length !== 0) {
+              return callback(null, response[1].filter(function (element) {
+                return element !== "0";
+              }));
+            } else {
+              return callback(null, []);
+            }
+          });
+        },
       },
 
       positions: {

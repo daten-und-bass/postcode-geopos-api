@@ -122,18 +122,55 @@ var jsonApiDePostcodes = function (api) {
       res.send(["Started"]);
     },
 
-    namesRange: function (req, res, next) {
+    namesRangeOrScan: function (req, res, next) {
 
-      var pcNamesZRange = []
-      pcNamesZRange[0] = "[" + req.swagger.params.leadRegion.value;
-      pcNamesZRange[1] = "[" + req.swagger.params.leadRegion.value + "\xff";
+      if (req.swagger.params.leadRegion.value && ! req.swagger.params.namesPattern.value ) {
+        
+        var pcNamesZRange = []
+        pcNamesZRange[0] = "[" + req.swagger.params.leadRegion.value;
+        pcNamesZRange[1] = "[" + req.swagger.params.leadRegion.value + "\xff";
 
-      that.db.names.range(pcNamesZKey, pcNamesZRange, {}, function(error, response) {
+        that.db.names.range(pcNamesZKey, pcNamesZRange, {}, function(error, response) {
 
-        if (error) { return next(error); }
+          if (error) { return next(error); }
 
-        res.send(response);
-      });
+          res.send(response);
+        });
+
+      } else if (req.swagger.params.namesPattern.value && ! req.swagger.params.leadRegion.value ) {
+        
+        var pcNamesZCursor = 0;
+        var pcNamesZMATCH = "MATCH";
+        var pcNamesZPatternString = req.swagger.params.namesPattern.value; 
+        var pcNamesZPattern = "*[" + pcNamesZPatternString[0].toLocaleLowerCase() + pcNamesZPatternString[0].toUpperCase() + "]" + pcNamesZPatternString.slice(1).toLowerCase() + "*";
+        var pcNamesZCOUNT = "COUNT";
+        var pcNamesZAmount = 13000;   // dirty. see: https://github.com/NodeRedis/node_redis/blob/master/examples/scan.js
+
+        that.db.names.scan(pcNamesZKey, [pcNamesZCursor, pcNamesZMATCH, pcNamesZPattern, pcNamesZCOUNT, pcNamesZAmount], {}, function(error, response) {
+
+          if (error) { return next(error); }
+
+          res.send(response);
+        });
+      }
+
+      else {
+
+        res.status(400).send({
+          "message": "Request validation failed: Either parameter (leadRegion) or parameter (namesPattern) are required",
+          "code": "REQUIRED",
+          "failedValidation": true,
+          "path": [
+              "paths",
+              "/api/v1/{de}/{postcodes}/names",
+              "get",
+              "parameters",
+              [ "2", "3" ]
+          ],
+          "paramName": ["leadRegion", "namesPattern"]
+        });
+      }
+
     },
 
     positionsGet: function (req, res, next) {

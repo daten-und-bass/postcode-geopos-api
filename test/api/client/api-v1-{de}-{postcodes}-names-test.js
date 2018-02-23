@@ -60,7 +60,7 @@ var expect = chai.expect;
 
 describe('/api/v1/{de}/{postcodes}/names', function() {
   describe('get', function() {
-    it('should respond with 200 Success for Content-Type application/json', function(done) {
+    it('should respond with 200 Success for qs leadRegion for Content-Type application/json', function(done) {
       /*eslint-disable*/
       var schema = {
         "type": "array",
@@ -103,7 +103,7 @@ describe('/api/v1/{de}/{postcodes}/names', function() {
       });
     });
 
-    it('should respond with 200 Success for Content-Type application/x-www-form-urlencoded', function(done) {
+    it('should respond with 200 Success for qs leadRegion for Content-Type application/x-www-form-urlencoded', function(done) {
       /*eslint-disable*/
       var schema = {
         "type": "array",
@@ -140,6 +140,160 @@ describe('/api/v1/{de}/{postcodes}/names', function() {
         expect(body[5]).to.equal('19063 Schwerin Mueß');
         expect(body[6]).to.equal('19073 Grambow Zülow Lützow-Lübstorf');
         expect(body[7]).to.equal('19374 Herzberg Obere Warnow');
+
+        expect(validator.validate(body, schema)).to.be.true;
+        done();
+      });
+    });
+
+    it('should respond with 200 Success for qs namesPattern for Content-Type application/json', function(done) {
+      /*eslint-disable*/
+      var schema = {
+        "type": "array",
+        "items": {
+          "type": "string"
+        }
+      };
+
+      /*eslint-enable*/
+      request({
+        url: 'https://localhost:10011/api/v1/de/postcodes/names',
+        json: true,
+        qs: {
+          namesPattern: 'münc'
+        },
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: 'Bearer ' + process.env.OAUTH_2
+        }
+      },
+      function(error, res, body) {
+        if (error) return done(error);
+
+        expect(res.statusCode).to.equal(200);
+
+        expect(body.length).to.equal(3);
+
+        expect(body[0]).to.equal('81543 München Bezirksteil Siebenbrunn');
+        expect(body[1]).to.equal('81545 München Bezirksteil Harlaching');
+        expect(body[2]).to.equal('81547 München Bezirksteil Giesing');
+
+        expect(validator.validate(body, schema)).to.be.true;
+        done();
+      });
+    });
+
+    it('should respond with 200 Success for qs namesPattern for Content-Type application/x-www-form-urlencoded', function(done) {
+      /*eslint-disable*/
+      var schema = {
+        "type": "array",
+        "items": {
+          "type": "string"
+        }
+      };
+
+      /*eslint-enable*/
+      request({
+        url: 'https://localhost:10011/api/v1/de/postcodes/names',
+        json: true,
+        qs: {
+          namesPattern: 'münc'
+        },
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/x-www-form-urlencoded',
+          Authorization: 'Bearer ' + process.env.OAUTH_2
+        }
+      },
+      function(error, res, body) {
+        if (error) return done(error);
+
+        expect(res.statusCode).to.equal(200);
+
+        expect(body.length).to.equal(3);
+
+        expect(body[0]).to.equal('81543 München Bezirksteil Siebenbrunn');
+        expect(body[1]).to.equal('81545 München Bezirksteil Harlaching');
+        expect(body[2]).to.equal('81547 München Bezirksteil Giesing');
+
+        expect(validator.validate(body, schema)).to.be.true;
+        done();
+      });
+    });
+
+    it('should respond with status code 400 for qs leadRegion and namesPattern for Content-Type application/json', function(done) {
+      /*eslint-disable*/
+      var schema = {
+        "required": [
+          "message"
+        ],
+        "properties": {
+          "message": {
+            "type": "string"
+          }
+        }
+      };
+
+      /*eslint-enable*/
+      request({
+        url: 'https://localhost:10011/api/v1/de/postcodes/names',
+        json: true,
+        qs: {
+          leadRegion: '25',
+          namesPattern: 'münc'
+        },
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: 'Bearer ' + process.env.OAUTH_2
+        }
+      },
+      function(error, res, body) {
+        if (error) return done(error);
+
+        expect(res.statusCode).to.equal(400);
+
+        expect(res.body.code).to.equal("REQUIRED");
+
+        expect(validator.validate(body, schema)).to.be.true;
+        done();
+      });
+    });
+
+    it('should respond with status code 400 for qs leadRegion and namesPattern for Content-Type application/x-www-form-urlencoded', function(done) {
+      /*eslint-disable*/
+      var schema = {
+        "required": [
+          "message"
+        ],
+        "properties": {
+          "message": {
+            "type": "string"
+          }
+        }
+      };
+
+      /*eslint-enable*/
+      request({
+        url: 'https://localhost:10011/api/v1/de/postcodes/names',
+        json: true,
+        qs: {
+          leadRegion: '25',
+          namesPattern: 'münc'
+        },
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/x-www-form-urlencoded',
+          Authorization: 'Bearer ' + process.env.OAUTH_2
+        }
+      },
+      function(error, res, body) {
+        if (error) return done(error);
+
+        expect(res.statusCode).to.equal(400);
+
+        expect(res.body.code).to.equal("REQUIRED");
 
         expect(validator.validate(body, schema)).to.be.true;
         done();
@@ -296,7 +450,7 @@ describe('/api/v1/{de}/{postcodes}/names', function() {
       });
     });
 
-    it('should respond with default Error for wrong qs pattern for Content-Type application/json', function(done) {
+    it('should respond with default Error for wrong qs leadRegion pattern for Content-Type application/json', function(done) {
       /*eslint-disable*/
       var schema = {
         "required": [
@@ -336,7 +490,7 @@ describe('/api/v1/{de}/{postcodes}/names', function() {
       });
     });
 
-    it('should respond with default Error for wrong qs pattern for Content-Type application/x-www-form-urlencoded', function(done) {
+    it('should respond with default Error for wrong qs leadRegion pattern for Content-Type application/x-www-form-urlencoded', function(done) {
       /*eslint-disable*/
       var schema = {
         "required": [
@@ -355,6 +509,86 @@ describe('/api/v1/{de}/{postcodes}/names', function() {
         json: true,
         qs: {
           leadRegion: 'noNumber'
+        },
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/x-www-form-urlencoded',
+          Authorization: 'Bearer ' + process.env.OAUTH_2
+        }
+      },
+      function(error, res, body) {
+        if (error) return done(error);
+
+        expect(res.statusCode).to.equal(400);
+
+        expect(res.body.code).to.equal("PATTERN");
+
+        expect(res.body.failedValidation).to.be.true;
+
+        expect(validator.validate(body, schema)).to.be.true;
+        done();
+      });
+    });
+
+    it('should respond with default Error for wrong qs namesPattern pattern for Content-Type application/json', function(done) {
+      /*eslint-disable*/
+      var schema = {
+        "required": [
+          "message"
+        ],
+        "properties": {
+          "message": {
+            "type": "string"
+          }
+        }
+      };
+
+      /*eslint-enable*/
+      request({
+        url: 'https://localhost:10011/api/v1/de/postcodes/names',
+        json: true,
+        qs: {
+          namesPattern: 'tooLongPattern'
+        },
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: 'Bearer ' + process.env.OAUTH_2
+        }
+      },
+      function(error, res, body) {
+        if (error) return done(error);
+
+        expect(res.statusCode).to.equal(400);
+
+        expect(res.body.code).to.equal("PATTERN");
+
+        expect(res.body.failedValidation).to.be.true;
+
+        expect(validator.validate(body, schema)).to.be.true;
+        done();
+      });
+    });
+
+    it('should respond with default Error for wrong qs namesPattern pattern for Content-Type application/x-www-form-urlencoded', function(done) {
+      /*eslint-disable*/
+      var schema = {
+        "required": [
+          "message"
+        ],
+        "properties": {
+          "message": {
+            "type": "string"
+          }
+        }
+      };
+
+      /*eslint-enable*/
+      request({
+        url: 'https://localhost:10011/api/v1/de/postcodes/names',
+        json: true,
+        qs: {
+          namesPattern: 'tooLongPattern'
         },
         method: 'GET',
         headers: {

@@ -43,19 +43,23 @@ paths:
     x-swagger-router-controller: context_json_api_de_postcodes
     get:
       summary: Returns names for postcodes
-      description: Returns all (city) names for all postcodes within the given lead region
-      operationId: namesRange
+      description: Returns all (city) names for all postcodes within either the given lead region or the given names pattern
+      operationId: namesRangeOrScan
       security:
         - oauth2: [ "read:pc" ]
       parameters:
         - $ref: "#/parameters/de"
         - $ref: "#/parameters/postcodes"
         - name: leadRegion
-          required: true
           in: query
           description: Postcode lead region ("Postleitregion") modelled as string (due to leading zeroes in German postcodes)
           type: string
           pattern: "^[0-9]{2,2}$"
+        - name: namesPattern
+          in: query
+          description: Pattern to match postcode and city name (only either this parameter or parameter (leadRegion) is allowed at the same time)
+          type: string
+          pattern: "^[0-9a-zA-ZäAöÖüÜß]{4,4}$"
       responses:
         "200":
           description: Success
@@ -63,6 +67,10 @@ paths:
             type: array
             items:
               type: string
+        "400":
+          description: Either parameter (leadRegion) or parameter (namesPattern) are required.
+          schema:
+            $ref: "#/definitions/ErrorResponse"        
         default:
           description: Error
           schema:
