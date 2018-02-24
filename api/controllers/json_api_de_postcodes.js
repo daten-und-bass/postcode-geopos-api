@@ -16,6 +16,7 @@ var jsonApiDePostcodes = function (api) {
   var pcNamesZScore = 0;
 
   return {
+
     load: function (req, res, next) {
 
       that.logger.reader('info-file', ['counters', 'timestamp'], 0, function (error, infoFileCounters) {
@@ -152,9 +153,8 @@ var jsonApiDePostcodes = function (api) {
 
           res.send(response);
         });
-      }
-
-      else {
+      
+      } else {
 
         res.status(400).send({
           "message": "Request validation failed: Either parameter (leadRegion) or parameter (namesPattern) are required",
@@ -182,7 +182,6 @@ var jsonApiDePostcodes = function (api) {
         if (error) { return next(error); }
 
         res.send(response);
-
       });
     },
 
@@ -209,7 +208,6 @@ var jsonApiDePostcodes = function (api) {
         if (error) { return next(error); }
 
         res.send(response);
-
       });
     },
   };

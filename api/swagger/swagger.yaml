@@ -1,6 +1,6 @@
 swagger: "2.0"
 info:
-  version: "0.1.0"
+  version: "0.2.1"
   title: postcode-geopos-api
 host: p-g-a.daten-und-bass.io
 basePath: /
@@ -59,7 +59,7 @@ paths:
           in: query
           description: Pattern to match postcode and city name (only either this parameter or parameter (leadRegion) is allowed at the same time)
           type: string
-          pattern: "^[0-9a-zA-ZäAöÖüÜß]{4,4}$"
+          pattern: "^[0-9\\sa-zA-ZäAöÖüÜß]{4,4}$"
       responses:
         "200":
           description: Success
