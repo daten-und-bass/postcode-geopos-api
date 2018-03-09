@@ -87,16 +87,24 @@ describe('/api/v1/{de}/{postcodes}/names', function() {
 
         expect(res.statusCode).to.equal(200);
 
-        expect(body.length).to.equal(8);
+        if (process.env.NODE_ENV === "testing_travis") {
 
-        expect(body[0]).to.equal('19053 Schwerin Paulsstadt');
-        expect(body[1]).to.equal('19055 Schwerin Schelfwerder');
-        expect(body[2]).to.equal('19057 Schwerin Sacktannen');
-        expect(body[3]).to.equal('19059 Schwerin Weststadt');
-        expect(body[4]).to.equal('19061 Schwerin Krebsförden');
-        expect(body[5]).to.equal('19063 Schwerin Mueß');
-        expect(body[6]).to.equal('19073 Grambow Zülow Lützow-Lübstorf');
-        expect(body[7]).to.equal('19374 Herzberg Obere Warnow');
+          expect(body.length).to.equal(8);
+
+          expect(body[0]).to.equal('19053 Schwerin Paulsstadt');
+          expect(body[1]).to.equal('19055 Schwerin Schelfwerder');
+          expect(body[2]).to.equal('19057 Schwerin Sacktannen');
+          expect(body[3]).to.equal('19059 Schwerin Weststadt');
+          expect(body[4]).to.equal('19061 Schwerin Krebsförden');
+          expect(body[5]).to.equal('19063 Schwerin Mueß');
+          expect(body[6]).to.equal('19073 Grambow Zülow Lützow-Lübstorf');
+          expect(body[7]).to.equal('19374 Herzberg Obere Warnow');
+
+        } else {
+
+          expect(body.length).to.equal(209);
+
+        }
 
         expect(validator.validate(body, schema)).to.be.true;
         done();
@@ -130,16 +138,24 @@ describe('/api/v1/{de}/{postcodes}/names', function() {
 
         expect(res.statusCode).to.equal(200);
 
-        expect(body.length).to.equal(8);
+        if (process.env.NODE_ENV === "testing_travis") {
 
-        expect(body[0]).to.equal('19053 Schwerin Paulsstadt');
-        expect(body[1]).to.equal('19055 Schwerin Schelfwerder');
-        expect(body[2]).to.equal('19057 Schwerin Sacktannen');
-        expect(body[3]).to.equal('19059 Schwerin Weststadt');
-        expect(body[4]).to.equal('19061 Schwerin Krebsförden');
-        expect(body[5]).to.equal('19063 Schwerin Mueß');
-        expect(body[6]).to.equal('19073 Grambow Zülow Lützow-Lübstorf');
-        expect(body[7]).to.equal('19374 Herzberg Obere Warnow');
+          expect(body.length).to.equal(8);
+
+          expect(body[0]).to.equal('19053 Schwerin Paulsstadt');
+          expect(body[1]).to.equal('19055 Schwerin Schelfwerder');
+          expect(body[2]).to.equal('19057 Schwerin Sacktannen');
+          expect(body[3]).to.equal('19059 Schwerin Weststadt');
+          expect(body[4]).to.equal('19061 Schwerin Krebsförden');
+          expect(body[5]).to.equal('19063 Schwerin Mueß');
+          expect(body[6]).to.equal('19073 Grambow Zülow Lützow-Lübstorf');
+          expect(body[7]).to.equal('19374 Herzberg Obere Warnow');
+
+        } else {
+
+          expect(body.length).to.equal(209);
+
+        }
 
         expect(validator.validate(body, schema)).to.be.true;
         done();
@@ -173,11 +189,19 @@ describe('/api/v1/{de}/{postcodes}/names', function() {
 
         expect(res.statusCode).to.equal(200);
 
+        if (process.env.NODE_ENV === "testing_travis") {
+
         expect(body.length).to.equal(3);
 
         expect(body[0]).to.equal('81543 München Bezirksteil Siebenbrunn');
         expect(body[1]).to.equal('81545 München Bezirksteil Harlaching');
         expect(body[2]).to.equal('81547 München Bezirksteil Giesing');
+
+        } else {
+          
+          expect(body.length).to.equal(103);
+
+        }
 
         expect(validator.validate(body, schema)).to.be.true;
         done();
@@ -211,11 +235,19 @@ describe('/api/v1/{de}/{postcodes}/names', function() {
 
         expect(res.statusCode).to.equal(200);
 
+        if (process.env.NODE_ENV === "testing_travis") {
+
         expect(body.length).to.equal(3);
 
         expect(body[0]).to.equal('81543 München Bezirksteil Siebenbrunn');
         expect(body[1]).to.equal('81545 München Bezirksteil Harlaching');
         expect(body[2]).to.equal('81547 München Bezirksteil Giesing');
+
+        } else {
+          
+          expect(body.length).to.equal(103);
+
+        }
 
         expect(validator.validate(body, schema)).to.be.true;
         done();

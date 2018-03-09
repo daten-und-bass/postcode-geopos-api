@@ -5,7 +5,9 @@ npm-debug.log
 **/.DS_Store
 **/.sublime-project
 **/.sublime-workspace
+*/**/config_development.js
 */**/config_production.js
+*/**/config_testing.js
 
 # Swagger ignored files
 # IDE files

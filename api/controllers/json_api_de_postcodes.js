@@ -41,7 +41,7 @@ var jsonApiDePostcodes = function (api) {
         pc.forEach(function (postcode, index) {
 
           var pcReqIsSuccess = false;
-          var pcReqUrl = process.env.DNB_ENV_APP_S1_WB_REQUEST_BASE_URL + postcode.state + '/' + postcode.postcode + process.env.DNB_ENV_APP_S1_WB_REQUEST_QUERY_PARAMS;
+          var pcReqUrl = process.env.PGA_WEB_REQUEST_BASE_URL + postcode.state + '/' + postcode.postcode + process.env.PGA_WEB_REQUEST_QUERY_PARAMS;
           
           var pcNamesZMember = "";
           var pcObjectsHKey  = "";

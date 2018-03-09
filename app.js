@@ -14,8 +14,10 @@ var SwaggerUi = require('swagger-tools/middleware/swagger-ui');
 
 var app = express();
 
-var httpsServer = https.createServer({key: process.env.PGA_WEB_HTTPS_KEY, cert: process.env.PGA_WEB_HTTPS_CRT}, app);
+var httpsServer = https.createServer({key: process.env.PGA_WEB_HTTPS_KEY, cert: process.env.PGA_WEB_HTTPS_PUB}, app);
 httpsServer.listen(webConfig.https.port);
+
+app.set('trust proxy', webConfig.proxies);
 
 app.set("forceSSLOptions", { httpsPort: webConfig.https.port });
 

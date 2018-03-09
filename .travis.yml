@@ -17,7 +17,7 @@ before_script:
   - sleep 10
   # - sudo cat /etc/redis/redis.conf
   - sudo sed -i 's|appendonly no|appendonly yes|g' /etc/redis/redis.conf
-  - sudo sed -i "s|# requirepass foobared|requirepass ${DNB_ENV_APP_S2_DB_PASS}|g" /etc/redis/redis.conf
+  - sudo sed -i "s|# requirepass foobared|requirepass ${PGA_DB1_PASS}|g" /etc/redis/redis.conf
   # - sudo cat /etc/redis/redis.conf
   # - sudo ls -al  /var/lib/redis
   - sudo find /var/lib/redis -mindepth 1 -delete
